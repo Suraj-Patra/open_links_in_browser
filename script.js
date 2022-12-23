@@ -8,12 +8,17 @@ const readline = require('readline').createInterface({
 let [ browser ] = process.argv.slice(2);
 
 const gettingInputs = () => {
-    readline.question('a. File\nb.Links\nEnter option : ', option => {
+    readline.question('a. File\nb. Path\nc. Links\nEnter option : ', option => {
 
         let path = '';
         if(option === 'a'){
             readline.question('Enter file name : ', file => {
                 path = `./Files/${file}`;
+                readline.close();
+                openFile(path);
+            })
+        } else if(option === 'b'){
+            readline.question('Enter path : ', path => {
                 readline.close();
                 openFile(path);
             })
@@ -48,6 +53,7 @@ const openLinks = (links) =>  {
 
     let command = '';
     if(browser === 'chrome'){
+        child_process.exec('google-chrome &');
         command = `google-chrome`;
     } else if(browser === 'librewolf'){
         let path = 'flatpak run io.gitlab.librewolf-community';

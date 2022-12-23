@@ -9,7 +9,10 @@
         a. node script.js chrome    |--> For chrome
         b. node script.js librewolf |--> For librewolf in private window
 
-        Type : a- for file option | b- for links option
+        Type :
+            a- for file option
+            b- for path option
+            c- for links
 
 
     From links :
@@ -26,3 +29,43 @@
     3. create another directory called 'Files'
     4. Inside this directory copy the files with links you want to open.
     5. In the file name give the name of the file.
+
+
+    From path :
+    1. same
+    2. same
+    3. create another directory called 'Files'
+    4. copy the path of the file and paste it with the file name.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

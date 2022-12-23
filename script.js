@@ -1,21 +1,48 @@
 const fs = require('fs');
 const child_process = require('child_process');
-const [ browser ] = process.argv.slice(2);
-
-fs.readFile('./links.txt', (err, data) => {
-    data = data.toString();
-    dataArr = data.split('\n');
-
-    linkArr = dataArr.filter((data) => {
-        if(data !== ''){
-            return data;
-        }
-    })
-
-    console.log(linkArr);
-
-    openLinks(linkArr);
+const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
 })
+
+let [ method, browser ] = process.argv.slice(2);
+
+const gettingInputs = () => {
+
+    let path = '';
+    if(method === 'file'){
+        readline.question('Enter file name : ', file => {
+            path = `./Files/${file}`;
+            readline.close();
+            openFile(path);
+        })
+    } else {
+        if(method==='chrome' || method==='librewolf'){
+            browser = method;
+        }
+        path = './links.txt';
+        openFile(path);
+    }
+}
+
+
+const openFile = (path) => {
+     console.log(path);
+     fs.readFile(path, (err, data) => {
+         data = data.toString();
+         dataArr = data.split('\n');
+
+         linkArr = dataArr.filter((data) => {
+             if(data !== ''){
+                 return data;
+             }
+         })
+
+         console.log(linkArr);
+
+        openLinks(linkArr);
+     })
+}
 
 const openLinks = (links) =>  {
 
@@ -42,18 +69,22 @@ const openLinks = (links) =>  {
 
 }
 
+gettingInputs();
+
+
+
 /*
 
 *** NOTE : Only for Linux ***
 
 Process :
-    
+
     1. Install Node
     2. Create a directory --> save this file as 'script.js' inside it
     3. Create another file inside the directory called --> 'links.txt'
     4. Copy the links you want to open, in the 'links.txt'
     5. Give following command :
-        
+
         a. node script.js chrome    |--> For chrome
         b. node script.js librewolf |--> For librewolf in private window
     
